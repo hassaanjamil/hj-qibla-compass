@@ -1,4 +1,4 @@
-# hQiblaDirection
+# hQiblaDirection (Android Native Library)
 
 An open source Android (Java) Native Library to incorporate/start Android Qibla Direction Activity in your Native Android Applcation.
 

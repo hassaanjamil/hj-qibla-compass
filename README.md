@@ -30,7 +30,8 @@ allprojects {
 ```
 startActivity(new Intent(MainActivity.this, CompassActivity.class));
 ```
-
+### Screenshot
+![Alt text](/Screenshot.jpeg?raw=true "Preview")
 ### Contributor
 Muhammad Hassan Jamil - Team Lead Android Development - TPL Maps - hassan.jamil@tplmaps.com
 

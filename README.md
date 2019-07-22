@@ -27,7 +27,9 @@ allprojects {
 	android:screenOrientation="portrait"/>
 ```
 ### Sample Code
-`startActivity(new Intent(MainActivity.this, CompassActivity.class));`
+```
+startActivity(new Intent(MainActivity.this, CompassActivity.class));
+```
 
 ### Contributor
 Muhammad Hassan Jamil - Team Lead Android Development - TPL Maps - hassan.jamil@tplmaps.com

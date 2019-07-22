@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" translatable="false">Qibla Compass</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="compass_dial" translatable="false">Compass Dial</string>
+    <string name="compass_hands" translatable="false">Compass Hands</string>
+    <string name="gps_settings_title" translatable="false">GPS settings</string>
+    <string name="gps_settings_text" translatable="false">GPS is not enabled. Do you want to go to settings menu?</string>
+    <string name="settings_button_ok" translatable="false">Settings</string>
+    <string name="settings_button_cancel" translatable="false">Cancel</string>
+    <string name="msg_permission_not_granted_yet" translatable="false">Location access not available yet</string>
+    <string name="msg_permission_granted" translatable="false">Location Access Granted, press GPS button now.</string>
+    <string name="toast_permission_required" translatable="false">This app requires Access Location</string>
+    <string name="your_location" translatable="false">Your Location: </string>
+    <string name="unable_to_get_your_location" translatable="false">Unable to get your location</string>
+    <string name="location_not_ready" translatable="false">Location not ready, please press button again.</string>
+    <string name="pls_enable_location" translatable="false">Please turn on Location and press the button again.</string>
+    <string name="degree" translatable="false">°</string>
+    <string name="using_last_location" translatable="false">using last location.</string>
+    <string name="dialog_message_sensor_not_exist" translatable="false">Your device doesn\'t have the required sensors</string>
+    <string name="dialog_title" translatable="false">Alert</string>
+</resources>

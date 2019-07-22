@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/compass_bg"
+    tools:context="com.islam.compass_noads.MainActivity"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+        <ImageView
+            android:id="@+id/main_image_dial"
+            android:layout_width="@dimen/dial"
+            android:layout_height="@dimen/dial"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/compass_dial"
+            android:src="@drawable/dial"/>
+        <ImageView
+            android:id="@+id/qiblat_indicator"
+            android:layout_width="@dimen/qibla"
+            android:layout_height="@dimen/qibla"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/compass_hands"
+            android:scaleType="fitXY"
+            android:src="@drawable/qibla" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_angle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_image"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+
+        <ImageView
+            android:id="@+id/bottom_image"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/bottom_image"
+            android:src="@drawable/bg_map"
+            android:scaleType="fitXY"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="25dp"
+            android:layout_alignParentBottom="true"/>
+
+        <TextView
+            android:id="@+id/tv_your_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:text="dsfjsdfklsdnlfsdf sdfklsd fksdjflksdfsdfdslkf jsdf"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

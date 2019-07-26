@@ -39,7 +39,7 @@ intent.putExtra(Constants.BOTTOM_IMAGE_VISIBLE, View.VISIBLE|View.INVISIBLE|View
 startActivity(intent);
 ```
 ### Screenshot
-![Preview](Screenshots/Screenshot.jpeg?raw=true "Preview")
+![Preview](Screenshots/preview.png?raw=true "Preview")
 
 ### Sample APK
 [APK](Apk/app-debug.apk)

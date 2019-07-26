@@ -6,10 +6,10 @@ An open source Android (Java) Native Library to incorporate/start Android Qibla 
 ## Configurations
 ### Dependency
 ```markdown
-implementation 'com.hassanjamil:qibla:0.2'
+implementation 'com.hassanjamil:qibla:0.2.1'
 ```
 ### Root Level build.gradle
-```
+``` groovy
 allprojects {
     repositories {
         jcenter()
@@ -20,15 +20,23 @@ allprojects {
 }
 ```
 ### AndroidManifest.xml
-```
+``` xml
 <activity
 	android:name="com.hassanjamil.hqibla.CompassActivity"
 	android:label="@string/app_name"
 	android:screenOrientation="portrait"/>
 ```
 ### Sample Code
-```
-startActivity(new Intent(MainActivity.this, CompassActivity.class));
+``` java
+Intent intent = new Intent(MainActivity.this, CompassActivity.class);
+intent.putExtra(Constants.COMPASS_BG_COLOR, "#FFFFFF");		// Compass background color
+intent.putExtra(Constants.TOOLBAR_BG_COLOR, "#FFFFFF");		// Toolbar Background color
+intent.putExtra(Constants.TOOLBAR_TITLE_COLOR, "#000000");	// Toolbar Title color
+intent.putExtra(Constants.ANGLE_TEXT_COLOR, "#000000");		// Angle Text color
+intent.putExtra(Constants.DRAWABLE_DIAL, R.drawable.dial);	// Your dial drawable resource
+intent.putExtra(Constants.DRAWABLE_QIBLA, R.drawable.qibla); 	// Your qibla indicator drawable resource
+intent.putExtra(Constants.BOTTOM_IMAGE_VISIBLE, View.VISIBLE|View.INVISIBLE|View.GONE);	// Bottom Image visibility
+startActivity(intent);
 ```
 ### Screenshot
 ![Preview](Screenshots/Screenshot.jpeg?raw=true "Preview")

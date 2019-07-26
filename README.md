@@ -41,9 +41,6 @@ startActivity(intent);
 ### Screenshot
 ![Preview](Screenshots/preview.png?raw=true "Preview")
 
-### Sample APK
-[APK](Apk/app-debug.apk)
-
 ### Contributor
 Muhammad Hassan Jamil - Team Lead Android Development - TPL Maps - hassan.jamil@tplmaps.com
 

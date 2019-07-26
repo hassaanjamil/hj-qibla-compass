@@ -31,10 +31,12 @@ public class GPSTracker extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60; // 1 minute
     // Declaring a Location Manager
     protected LocationManager locationManager;
+
     public GPSTracker(Context context) {
         this.mContext = context;
         location = getLocation();
     }
+
     @SuppressLint("MissingPermission")
     public Location getLocation() {
         try {
@@ -88,47 +90,53 @@ public class GPSTracker extends Service implements LocationListener {
         }
         return location;
     }
+
     /**
      * Stop using GPS listener
      * Calling this function will stop using GPS in your app
-     * */
-    public void stopUsingGPS(){
-        if(locationManager != null){
+     */
+    public void stopUsingGPS() {
+        if (locationManager != null) {
             locationManager.removeUpdates(GPSTracker.this);
         }
     }
+
     /**
      * Function to get latitude
-     * */
-    public double getLatitude(){
-        if(location != null){
+     */
+    public double getLatitude() {
+        if (location != null) {
             latitude = location.getLatitude();
         }
         // return latitude
         return latitude;
     }
+
     /**
      * Function to get longitude
-     * */
-    public double getLongitude(){
-        if(location != null){
+     */
+    public double getLongitude() {
+        if (location != null) {
             longitude = location.getLongitude();
         }
         // return longitude
         return longitude;
     }
+
     /**
      * Function to check GPS/wifi enabled
+     *
      * @return boolean
-     * */
+     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
+
     /**
      * Function to show settings alert dialog
      * On pressing Settings button will lauch Settings Options
-     * */
-    public void showSettingsAlert(){
+     */
+    public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title
         alertDialog.setTitle(mContext.getResources().getString(R.string.gps_settings_title));
@@ -136,7 +144,7 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.setMessage(mContext.getResources().getString(R.string.gps_settings_text));
         // On pressing Settings button
         alertDialog.setPositiveButton(mContext.getResources().getString(R.string.settings_button_ok), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog,int which) {
+            public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
             }
@@ -150,10 +158,12 @@ public class GPSTracker extends Service implements LocationListener {
         // Showing Alert Message
         alertDialog.show();
     }
+
     @Override
     public void onLocationChanged(Location location) {
 // TODO Auto-generated method stub
     }
+
     @Override
     public void onProviderDisabled(String provider) {
 // TODO Auto-generated method stub
@@ -164,10 +174,12 @@ public class GPSTracker extends Service implements LocationListener {
 // TODO Auto-generated method stub
 
     }
+
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
 // TODO Auto-generated method stub
     }
+
     @Override
     public IBinder onBind(Intent intent) {
 // TODO Auto-generated method stub

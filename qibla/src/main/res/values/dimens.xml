@@ -4,5 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="dial">205dp</dimen>
     <dimen name="qibla">320dp</dimen>
-    <dimen name="bottom_image">170dp</dimen>
+    <dimen name="bottom_image">180dp</dimen>
 </resources>

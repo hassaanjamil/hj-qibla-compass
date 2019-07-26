@@ -1,24 +1,41 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout android:id="@+id/root"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/compass_bg"
-    tools:context="com.islam.compass_noads.MainActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_red"
+    tools:context=".CompassActivity"
     android:gravity="center_horizontal"
     android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        style="@style/toolbar"
+        android:layout_height="56dp"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:elevation="4dp"
+        app:title="@string/app_name"
+        app:titleTextColor="@android:color/white" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="3dp">
+
         <ImageView
-            android:id="@+id/main_image_dial"
+            android:id="@+id/dial"
             android:layout_width="@dimen/dial"
             android:layout_height="@dimen/dial"
             android:layout_centerInParent="true"
             android:contentDescription="@string/compass_dial"
-            android:src="@drawable/dial"/>
+            android:src="@drawable/dial" />
+
         <ImageView
-            android:id="@+id/qiblat_indicator"
+            android:id="@+id/qibla_indicator"
             android:layout_width="@dimen/qibla"
             android:layout_height="@dimen/qibla"
             android:layout_centerInParent="true"
@@ -27,41 +44,38 @@
             android:src="@drawable/qibla" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/angle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/tv_angle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/bottom_image"
-            android:gravity="center_horizontal"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"/>
 
         <ImageView
             android:id="@+id/bottom_image"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_image"
             android:src="@drawable/bg_map"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="25dp"
-            android:layout_alignParentBottom="true"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp" />
 
-        <TextView
+        <!--<TextView
             android:id="@+id/tv_your_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="@android:color/white"
-            android:text="dsfjsdfklsdnlfsdf sdfklsd fksdjflksdfsdfdslkf jsdf"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"/>-->
     </RelativeLayout>
-
-
-
-
 </LinearLayout>

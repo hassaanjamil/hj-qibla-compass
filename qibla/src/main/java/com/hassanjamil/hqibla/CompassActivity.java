@@ -2,13 +2,17 @@ package com.hassanjamil.hqibla;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +35,7 @@ public class CompassActivity extends AppCompatActivity {
     private ImageView qiblatIndicator;
     private ImageView imageDial;
     private TextView tvAngle;
-    private TextView tvYourLocation;
+    //private TextView tvYourLocation;
     //public Menu menu;
     //public MenuItem item;
     private float currentAzimuth;
@@ -43,24 +47,32 @@ public class CompassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_compass);
-        //////////////////////////////////////////
 
-        //////////////////////////////////////////
+        setUserChangesToViews(getIntent());
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(this, R.drawable.ic_arrow_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        /////////////////////////////////////////////////
         prefs = getSharedPreferences("", MODE_PRIVATE);
         gps = new GPSTracker(this);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         //////////////////////////////////////////
-        qiblatIndicator = findViewById(R.id.qiblat_indicator);
-        imageDial = findViewById(R.id.main_image_dial);
-        tvAngle = findViewById(R.id.tv_angle);
-        tvYourLocation = findViewById(R.id.tv_your_location);
+        qiblatIndicator = findViewById(R.id.qibla_indicator);
+        imageDial = findViewById(R.id.dial);
+        tvAngle = findViewById(R.id.angle);
+        //tvYourLocation = findViewById(R.id.tv_your_location);
 
         //////////////////////////////////////////
         qiblatIndicator.setVisibility(INVISIBLE);
         qiblatIndicator.setVisibility(View.GONE);
 
         setupCompass();
-
     }
 
     @Override
@@ -103,13 +115,68 @@ public class CompassActivity extends AppCompatActivity {
         }
     }
 
+    private void setUserChangesToViews(Intent intent) {
+        try {
+            // Toolbar Background Color
+            findViewById(R.id.toolbar).setBackgroundColor(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.TOOLBAR_BG_COLOR)) ?
+                            Color.parseColor(intent.getExtras().getString(Constants.TOOLBAR_BG_COLOR)) :
+                            Color.parseColor("#" + Integer.toHexString(
+                                    ContextCompat.getColor(this, R.color.app_red))));
+            // Toolbar Title Color
+            ((Toolbar) findViewById(R.id.toolbar)).setTitleTextColor(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.TOOLBAR_TITLE_COLOR)) ?
+                            Color.parseColor(intent.getExtras().getString(Constants.TOOLBAR_TITLE_COLOR)) :
+                            Color.parseColor("#" + Integer.toHexString(
+                                    ContextCompat.getColor(this, android.R.color.white))));
+            // Root Background Color
+            findViewById(R.id.root).setBackgroundColor(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.COMPASS_BG_COLOR)) ?
+                            Color.parseColor(intent.getExtras().getString(Constants.COMPASS_BG_COLOR)) :
+                            Color.parseColor("#" + Integer.toHexString(
+                                    ContextCompat.getColor(this, R.color.app_red))));
+            // Qibla Degrees Text Color
+            ((TextView) findViewById(R.id.angle)).setTextColor(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.ANGLE_TEXT_COLOR)) ?
+                            Color.parseColor(intent.getExtras().getString(Constants.ANGLE_TEXT_COLOR)) :
+                            Color.parseColor("#" + Integer.toHexString(
+                                    ContextCompat.getColor(this, android.R.color.white))));
+            // Toolbar Nav Icon
+            /*((Toolbar) findViewById(R.id.toolbar)).setNavigationIcon(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.TOOLBAR_NAV_ICON)) ?
+                            intent.getExtras().getInt(Constants.TOOLBAR_NAV_ICON) : R.drawable.ic_arrow_back);*/
+            // Dial
+            ((ImageView) findViewById(R.id.dial)).setImageResource(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.DRAWABLE_DIAL)) ?
+                            intent.getExtras().getInt(Constants.DRAWABLE_DIAL) : R.drawable.dial);
+            // Qibla Indicator
+            ((ImageView) findViewById(R.id.qibla_indicator)).setImageResource(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.DRAWABLE_QIBLA)) ?
+                            intent.getExtras().getInt(Constants.DRAWABLE_QIBLA) : R.drawable.qibla);
+            // Bottom Image
+            findViewById(R.id.bottom_image).setVisibility(
+                    (intent.getExtras() != null &&
+                            intent.getExtras().containsKey(Constants.BOTTOM_IMAGE_VISIBLE)) ?
+                            intent.getExtras().getInt(Constants.BOTTOM_IMAGE_VISIBLE) : View.VISIBLE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setupCompass() {
         Boolean permission_granted = GetBoolean("permission_granted");
         if (permission_granted) {
             getBearing();
         } else {
             tvAngle.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
-            tvYourLocation.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
+            //tvYourLocation.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -177,13 +244,13 @@ public class CompassActivity extends AppCompatActivity {
 
         float kiblat_derajat = GetFloat("kiblat_derajat");
         if (kiblat_derajat > 0.0001) {
-            String strYourLocation;
+            /*String strYourLocation;
             if(gps.getLocation() != null)
                 strYourLocation = getResources().getString(R.string.your_location)
                         + " " + gps.getLocation().getLatitude() + ", " + gps.getLocation().getLongitude();
             else
-                strYourLocation = getResources().getString(R.string.unable_to_get_your_location);
-            tvYourLocation.setText(strYourLocation);
+                strYourLocation = getResources().getString(R.string.unable_to_get_your_location);*/
+            //tvYourLocation.setText(strYourLocation);
             String strKaabaDirection = String.format(Locale.ENGLISH, "%.0f", kiblat_derajat)
                     + " " + getResources().getString(R.string.degree);
             tvAngle.setText(strKaabaDirection);
@@ -209,7 +276,7 @@ public class CompassActivity extends AppCompatActivity {
                 // permission was granted, yay! Do the
                 SaveBoolean("permission_granted", true);
                 tvAngle.setText(getResources().getString(R.string.msg_permission_granted));
-                tvYourLocation.setText(getResources().getString(R.string.msg_permission_granted));
+                //tvYourLocation.setText(getResources().getString(R.string.msg_permission_granted));
                 qiblatIndicator.setVisibility(INVISIBLE);
                 qiblatIndicator.setVisibility(View.GONE);
 
@@ -296,12 +363,12 @@ public class CompassActivity extends AppCompatActivity {
         double result;
         gps = new GPSTracker(this);
         if (gps.canGetLocation()) {
-            double latitude = gps.getLatitude();
+            /*double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
             // \n is for new line
             String strYourLocation = getResources().getString(R.string.your_location)
-                    + " " + latitude + ", " + longitude;
-            tvYourLocation.setText(strYourLocation);
+                    + " " + latitude + ", " + longitude;*/
+            //tvYourLocation.setText(strYourLocation);
             //Toast.makeText(getApplicationContext(), "Lokasi anda: - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
             Log.e("TAG", "GPS is on");
             double lat_saya = gps.getLatitude();
@@ -311,7 +378,7 @@ public class CompassActivity extends AppCompatActivity {
                 qiblatIndicator.setVisibility(INVISIBLE);
                 qiblatIndicator.setVisibility(View.GONE);
                 tvAngle.setText(getResources().getString(R.string.location_not_ready));
-                tvYourLocation.setText(getResources().getString(R.string.location_not_ready));
+                //tvYourLocation.setText(getResources().getString(R.string.location_not_ready));
                 /*if (item != null) {
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.gps_off));
                 }*/
@@ -356,7 +423,7 @@ public class CompassActivity extends AppCompatActivity {
             qiblatIndicator.setVisibility(INVISIBLE);
             qiblatIndicator.setVisibility(View.GONE);
             tvAngle.setText(getResources().getString(R.string.pls_enable_location));
-            tvYourLocation.setText(getResources().getString(R.string.pls_enable_location));
+            //tvYourLocation.setText(getResources().getString(R.string.pls_enable_location));
             /*if (item != null) {
                 item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.gps_off));
 

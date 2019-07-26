@@ -5,4 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="toolbar" parent="AppTheme">
+        <item name="android:background">@color/app_red</item>
+    </style>
+
 </resources>

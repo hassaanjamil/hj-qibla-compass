@@ -11,8 +11,6 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-import java.util.List;
-
 public class Compass implements SensorEventListener {
     private static final String TAG = Compass.class.getSimpleName();
 
@@ -49,7 +47,7 @@ public class Compass implements SensorEventListener {
         boolean haveAS = manager.hasSystemFeature(PackageManager.FEATURE_SENSOR_ACCELEROMETER);
         boolean haveCS = manager.hasSystemFeature(PackageManager.FEATURE_SENSOR_COMPASS);
 
-        if(!haveAS || !haveCS) {
+        if (!haveAS || !haveCS) {
             sensorManager.unregisterListener(this, asensor);
             sensorManager.unregisterListener(this, msensor);
             Log.e(TAG, "Device don't have enough sensors");

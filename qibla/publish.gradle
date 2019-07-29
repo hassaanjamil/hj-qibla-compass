@@ -2,7 +2,7 @@ apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'maven-publish'
 
 def packageName = 'com.hassanjamil'
-def libraryVersion = '0.2.1'
+def libraryVersion = '0.2.2'
 
 // build a jar with source files
 task sourcesJar(type: Jar) {

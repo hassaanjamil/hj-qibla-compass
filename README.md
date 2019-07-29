@@ -37,7 +37,7 @@ intent.putExtra(Constants.ANGLE_TEXT_COLOR, "#000000");		// Angle Text color
 intent.putExtra(Constants.DRAWABLE_DIAL, R.drawable.dial);	// Your dial drawable resource
 intent.putExtra(Constants.DRAWABLE_QIBLA, R.drawable.qibla); 	// Your qibla indicator drawable resource
 intent.putExtra(Constants.BOTTOM_IMAGE_VISIBLE, View.VISIBLE|View.INVISIBLE|View.GONE);	// Bottom Image visibility
-intent.putExtra(Constants.LOCATION_TEXT_VISIBLE, View.VISIBLE|View.INVISIBLE|View.GONE); // Your location text on bottom
+intent.putExtra(Constants.LOCATION_TEXT_VISIBLE, View.VISIBLE|View.INVISIBLE|View.GONE); // Location Text visibility
 startActivity(intent);
 ```
 ### Screenshot

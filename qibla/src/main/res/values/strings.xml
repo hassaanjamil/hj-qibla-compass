@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">Qibla Compass</string>
+    <string name="app_name" translatable="false">Qibla Compass Library</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="compass_dial" translatable="false">Compass Dial</string>
     <string name="compass_hands" translatable="false">Compass Hands</string>
@@ -18,4 +18,5 @@
     <string name="using_last_location" translatable="false">using last location.</string>
     <string name="dialog_message_sensor_not_exist" translatable="false">Your device doesn\'t have the required sensors</string>
     <string name="dialog_title" translatable="false">Alert</string>
+    <string name="footer_image">Footer Image</string>
 </resources>

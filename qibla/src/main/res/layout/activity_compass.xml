@@ -59,23 +59,24 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/bottom_image"
+            android:id="@+id/footer_image"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/bottom_image"
-            android:src="@drawable/bg_map"
+            android:src="@drawable/footer"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp" />
+            android:layout_marginBottom="20dp"
+            android:contentDescription="@string/footer_image" />
 
-        <!--<TextView
-            android:id="@+id/tv_your_location"
+        <TextView
+            android:id="@+id/your_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:textColor="@android:color/white"
-            android:layout_alignParentBottom="true"/>-->
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 </LinearLayout>

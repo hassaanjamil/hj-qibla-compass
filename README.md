@@ -30,9 +30,9 @@ allprojects {
 ``` java
 Intent intent = new Intent(MainActivity.this, CompassActivity.class);
 intent.putExtra(Constants.TOOLBAR_TITLE, "My App");		// Toolbar Title
-intent.putExtra(Constants.COMPASS_BG_COLOR, "#FFFFFF");		// Compass background color
 intent.putExtra(Constants.TOOLBAR_BG_COLOR, "#FFFFFF");		// Toolbar Background color
 intent.putExtra(Constants.TOOLBAR_TITLE_COLOR, "#000000");	// Toolbar Title color
+intent.putExtra(Constants.COMPASS_BG_COLOR, "#FFFFFF");		// Compass background color
 intent.putExtra(Constants.ANGLE_TEXT_COLOR, "#000000");		// Angle Text color
 intent.putExtra(Constants.DRAWABLE_DIAL, R.drawable.dial);	// Your dial drawable resource
 intent.putExtra(Constants.DRAWABLE_QIBLA, R.drawable.qibla); 	// Your qibla indicator drawable resource

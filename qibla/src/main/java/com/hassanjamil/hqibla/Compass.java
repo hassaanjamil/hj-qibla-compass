@@ -26,8 +26,8 @@ public class Compass implements SensorEventListener {
 
     private float[] aData = new float[3];
     private float[] mData = new float[3];
-    private float[] Rotation = new float[9];
-    private float[] Identity = new float[9];
+    private float[] R = new float[9];
+    private float[] I = new float[9];
 
     private float azimuthFix;
 
@@ -58,10 +58,10 @@ public class Compass implements SensorEventListener {
 
     private void dialogError(final Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(context.getString(R.string.dialog_title));
+        builder.setTitle(context.getString(com.hassanjamil.hqibla.R.string.dialog_title));
         builder.setCancelable(false);
         builder.setIcon(android.R.drawable.ic_dialog_alert);
-        builder.setMessage(context.getString(R.string.dialog_message_sensor_not_exist));
+        builder.setMessage(context.getString(com.hassanjamil.hqibla.R.string.dialog_message_sensor_not_exist));
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -113,10 +113,10 @@ public class Compass implements SensorEventListener {
                         * event.values[2];
             }
 
-            boolean success = SensorManager.getRotationMatrix(Rotation, Identity, aData, mData);
+            boolean success = SensorManager.getRotationMatrix(R, I, aData, mData);
             if (success) {
                 float[] orientation = new float[3];
-                SensorManager.getOrientation(Rotation, orientation);
+                SensorManager.getOrientation(R, orientation);
                 float azimuth = (float) Math.toDegrees(orientation[0]); // orientation
                 azimuth = (azimuth + azimuthFix + 360) % 360;
                 //azimuth = (azimuth + azimuthFix + 360) % 294;
@@ -137,13 +137,13 @@ public class Compass implements SensorEventListener {
             }
 
             if (hasAS && hasMS) {
-                float[] Identity = new float[9];
-                float[] Rotation = new float[9];
-                boolean success = SensorManager.getRotationMatrix(Rotation, Identity, aData, mData);
+                float[] I = new float[9];
+                float[] R = new float[9];
+                boolean success = SensorManager.getRotationMatrix(R, I, aData, mData);
 
                 if (success) {
                     float[] O = new float[3];
-                    SensorManager.getOrientation(Rotation, O);
+                    SensorManager.getOrientation(R, O);
                     float rotationInRadians = O[0];
                     float rotationInDegrees = (float) Math.toDegrees(rotationInRadians);
                     rotationInDegrees = (rotationInDegrees + 0 + 360) % 360;

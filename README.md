@@ -42,7 +42,7 @@ startActivity(intent);
 ```
 ### Screenshot
 <p float="left">
- <img src="Screenshots/preview.png" width="300" />
+ <img src="screenshot/preview.png" width="300" />
 </p>
 
 ### Contributor

@@ -41,12 +41,14 @@ intent.putExtra(Constants.LOCATION_TEXT_VISIBLE, View.VISIBLE|View.INVISIBLE|Vie
 startActivity(intent);
 ```
 ### Screenshot
-![Preview](Screenshots/preview.png?raw=true "Preview")
+<p float="left">
+ <img src="Screenshots/preview.png" width="300" />
+</p>
 
 ### Contributor
 Muhammad Hassan Jamil - Team Lead Android Development - TPL Maps - hassan.jamil@tplmaps.com
 
-Please contirbute more to help it improve.
+Please contirbute to help improve it.
 
 ### Reference
 This code is based on https://github.com/iutinvg/compass/

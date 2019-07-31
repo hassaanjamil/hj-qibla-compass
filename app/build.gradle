@@ -11,11 +11,21 @@ android {
         versionName "1.0"
 
         vectorDrawables.useSupportLibrary = true
+
+        setProperty("archivesBaseName", "hQiblaDirection")
     }
     buildTypes {
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def date = new Date();
+                def formattedDate = date.format('yyyyMMddHHmmss')
+                def apkFileName = archivesBaseName + "-" + formattedDate + ".apk"
+                output.outputFileName = apkFileName // directly assign the new name back to outputFileName
+            }
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules-release.pro'
         }
     }
 }

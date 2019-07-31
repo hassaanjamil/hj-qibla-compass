@@ -2,12 +2,10 @@ package com.hassanjamil.hqibla;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -198,7 +196,7 @@ public class CompassActivity extends AppCompatActivity {
         }
     }
 
-    public Drawable getDrawable(Context context, String resource_name) {
+    /*public Drawable getDrawable(Context context, String resource_name) {
         try {
             int resId = context.getResources().getIdentifier(resource_name, "drawable", context.getPackageName());
             if (resId != 0) {
@@ -210,7 +208,7 @@ public class CompassActivity extends AppCompatActivity {
         }
 
         return null;
-    }
+    }*/
 
     private void setupCompass() {
         Boolean permission_granted = GetBoolean("permission_granted");
@@ -284,8 +282,8 @@ public class CompassActivity extends AppCompatActivity {
     public void getBearing() {
         // Get the location manager
 
-        float kiblat_derajat = GetFloat("kiblat_derajat");
-        if (kiblat_derajat > 0.0001) {
+        float kaabaDegs = GetFloat("kiblat_derajat");
+        if (kaabaDegs > 0.0001) {
             String strYourLocation;
             if(gps.getLocation() != null)
                 strYourLocation = getResources().getString(R.string.your_location)
@@ -293,8 +291,8 @@ public class CompassActivity extends AppCompatActivity {
             else
                 strYourLocation = getResources().getString(R.string.unable_to_get_your_location);
             tvYourLocation.setText(strYourLocation);
-            String strKaabaDirection = String.format(Locale.ENGLISH, "%.0f", kiblat_derajat)
-                    + " " + getResources().getString(R.string.degree);
+            String strKaabaDirection = String.format(Locale.ENGLISH, "%.0f", kaabaDegs)
+                    + " " + getResources().getString(R.string.degree) + " " + getDirectionString(kaabaDegs);
             tvAngle.setText(strKaabaDirection);
             // MenuItem item = menu.findItem(R.id.gps);
             //if (item != null) {
@@ -304,6 +302,29 @@ public class CompassActivity extends AppCompatActivity {
         } else {
             fetch_GPS();
         }
+    }
+
+    private String getDirectionString(float azimuthDegrees) {
+        String where = "NW";
+
+        if (azimuthDegrees >= 350 || azimuthDegrees <= 10)
+            where = "N";
+        if (azimuthDegrees < 350 && azimuthDegrees > 280)
+            where = "NW";
+        if (azimuthDegrees <= 280 && azimuthDegrees > 260)
+            where = "W";
+        if (azimuthDegrees <= 260 && azimuthDegrees > 190)
+            where = "SW";
+        if (azimuthDegrees <= 190 && azimuthDegrees > 170)
+            where = "S";
+        if (azimuthDegrees <= 170 && azimuthDegrees > 100)
+            where = "SE";
+        if (azimuthDegrees <= 100 && azimuthDegrees > 80)
+            where = "E";
+        if (azimuthDegrees <= 80 && azimuthDegrees > 10)
+            where = "NE";
+
+        return where;
     }
 
 
@@ -400,22 +421,18 @@ public class CompassActivity extends AppCompatActivity {
     }
 
     public void fetch_GPS() {
-
-
         double result;
         gps = new GPSTracker(this);
         if (gps.canGetLocation()) {
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
+            double myLat = gps.getLatitude();
+            double myLng = gps.getLongitude();
             // \n is for new line
             String strYourLocation = getResources().getString(R.string.your_location)
-                    + " " + latitude + ", " + longitude;
+                    + " " + myLat + ", " + myLng;
             tvYourLocation.setText(strYourLocation);
             //Toast.makeText(getApplicationContext(), "Lokasi anda: - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
             Log.e("TAG", "GPS is on");
-            double lat_saya = gps.getLatitude();
-            double lon_saya = gps.getLongitude();
-            if (lat_saya < 0.001 && lon_saya < 0.001) {
+            if (myLat < 0.001 && myLng < 0.001) {
                 // qiblatIndicator.isShown(false);
                 qiblatIndicator.setVisibility(INVISIBLE);
                 qiblatIndicator.setVisibility(View.GONE);
@@ -429,16 +446,16 @@ public class CompassActivity extends AppCompatActivity {
                 /*if (item != null) {
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(), R.drawable.gps_on));
                 }*/
-                double longitude2 = 39.826206; // ka'bah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
-                double latitude2 = Math.toRadians(21.422487); // ka'bah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
-                double latitude1 = Math.toRadians(lat_saya);
-                double longDiff = Math.toRadians(longitude2 - lon_saya);
-                double y = Math.sin(longDiff) * Math.cos(latitude2);
-                double x = Math.cos(latitude1) * Math.sin(latitude2) - Math.sin(latitude1) * Math.cos(latitude2) * Math.cos(longDiff);
+                double kaabaLng = 39.826206; // ka'bah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
+                double kaabaLat = Math.toRadians(21.422487); // ka'bah Position https://www.latlong.net/place/kaaba-mecca-saudi-arabia-12639.html
+                double myLatRad = Math.toRadians(myLat);
+                double longDiff = Math.toRadians(kaabaLng - myLng);
+                double y = Math.sin(longDiff) * Math.cos(kaabaLat);
+                double x = Math.cos(myLatRad) * Math.sin(kaabaLat) - Math.sin(myLatRad) * Math.cos(kaabaLat) * Math.cos(longDiff);
                 result = (Math.toDegrees(Math.atan2(y, x)) + 360) % 360;
                 SaveFloat("kiblat_derajat", (float) result);
                 String strKaabaDirection = String.format(Locale.ENGLISH, "%.0f", (float) result)
-                        + " " + getResources().getString(R.string.degree);
+                        + " " + getResources().getString(R.string.degree) + " " + getDirectionString((float) result);
                 tvAngle.setText(strKaabaDirection);
                 qiblatIndicator.setVisibility(View.VISIBLE);
 

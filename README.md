@@ -49,7 +49,7 @@ startActivity(intent);
 Muhammad Hassan Jamil</br>
 Team Lead Android Development</br>
 TPL Maps</br>
-hassan.jamil@tplmaps.com
+hassanjamil91@gmail.com
 
 Please contirbute to help improve it.
 

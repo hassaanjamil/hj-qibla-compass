@@ -48,7 +48,6 @@ startActivity(intent);
 ### Contributor
 Muhammad Hassan Jamil</br>
 Team Lead Android Development</br>
-TPL Maps</br>
 hassanjamil91@gmail.com
 
 Please contirbute to help improve it.

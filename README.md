@@ -50,7 +50,7 @@ Muhammad Hassan Jamil</br>
 Team Lead Android Development</br>
 hassanjamil91@gmail.com
 
-Please contirbute to help improve it.
+Please contirbute to help in improvin' it.
 
 ### Reference
 This code is based on https://github.com/iutinvg/compass/

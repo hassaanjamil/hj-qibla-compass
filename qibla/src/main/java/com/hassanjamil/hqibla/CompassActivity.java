@@ -65,12 +65,12 @@ public class CompassActivity extends AppCompatActivity {
         //////////////////////////////////////////
         qiblatIndicator = findViewById(R.id.qibla_indicator);
         imageDial = findViewById(R.id.dial);
-        tvAngle = findViewById(R.id.angle);
-        tvYourLocation = findViewById(R.id.your_location);
+        //tvAngle = findViewById(R.id.angle);
+        //tvYourLocation = findViewById(R.id.your_location);
 
         //////////////////////////////////////////
-        qiblatIndicator.setVisibility(INVISIBLE);
-        qiblatIndicator.setVisibility(View.GONE);
+        /*qiblatIndicator.setVisibility(INVISIBLE);
+        qiblatIndicator.setVisibility(View.GONE);*/
 
         setupCompass();
     }
@@ -118,26 +118,26 @@ public class CompassActivity extends AppCompatActivity {
     private void setUserChanges(Intent intent) {
         try {
             // Toolbar Title
-            ((Toolbar) findViewById(R.id.toolbar)).setTitle(
+            /*((Toolbar) findViewById(R.id.toolbar)).setTitle(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.TOOLBAR_TITLE)) ?
-                            intent.getExtras().getString(Constants.TOOLBAR_TITLE) : getString(R.string.app_name));
+                            intent.getExtras().getString(Constants.TOOLBAR_TITLE) : getString(R.string.app_name));*/
 
             // Toolbar Title Color
-            ((Toolbar) findViewById(R.id.toolbar)).setTitleTextColor(
+            /*((Toolbar) findViewById(R.id.toolbar)).setTitleTextColor(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.TOOLBAR_TITLE_COLOR)) ?
                             Color.parseColor(intent.getExtras().getString(Constants.TOOLBAR_TITLE_COLOR)) :
                             Color.parseColor("#" + Integer.toHexString(
-                                    ContextCompat.getColor(this, android.R.color.white))));
+                                    ContextCompat.getColor(this, android.R.color.white))));*/
 
             // Toolbar Background Color
-            findViewById(R.id.toolbar).setBackgroundColor(
+            /*findViewById(R.id.toolbar).setBackgroundColor(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.TOOLBAR_BG_COLOR)) ?
                             Color.parseColor(intent.getExtras().getString(Constants.TOOLBAR_BG_COLOR)) :
                             Color.parseColor("#" + Integer.toHexString(
-                                    ContextCompat.getColor(this, R.color.app_red))));
+                                    ContextCompat.getColor(this, R.color.app_red))));*/
 
             // Toolbar Back Arrow Icon
             /*Drawable drawable2 = getDrawable(getApplicationContext(),
@@ -152,22 +152,22 @@ public class CompassActivity extends AppCompatActivity {
             ((Toolbar) findViewById(R.id.toolbar)).setNavigationIcon(drawable2);*/
 
             // Root Background Color
-            findViewById(R.id.root).setBackgroundColor(
+            /*findViewById(R.id.root).setBackgroundColor(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.COMPASS_BG_COLOR)) ?
                             Color.parseColor(intent.getExtras().getString(Constants.COMPASS_BG_COLOR)) :
                             Color.parseColor("#" + Integer.toHexString(
-                                    ContextCompat.getColor(this, R.color.app_red))));
+                                    ContextCompat.getColor(this, R.color.app_red))));*/
 
             // Qibla Degrees Text Color
-            ((TextView) findViewById(R.id.angle)).setTextColor(
+            /*((TextView) findViewById(R.id.angle)).setTextColor(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.ANGLE_TEXT_COLOR)) ?
                             Color.parseColor(intent.getExtras().getString(Constants.ANGLE_TEXT_COLOR)) :
                             Color.parseColor("#" + Integer.toHexString(
-                                    ContextCompat.getColor(this, android.R.color.white))));
+                                    ContextCompat.getColor(this, android.R.color.white))));*/
 
-            // Dial
+            /*// Dial
             ((ImageView) findViewById(R.id.dial)).setImageResource(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.DRAWABLE_DIAL)) ?
@@ -177,19 +177,19 @@ public class CompassActivity extends AppCompatActivity {
             ((ImageView) findViewById(R.id.qibla_indicator)).setImageResource(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.DRAWABLE_QIBLA)) ?
-                            intent.getExtras().getInt(Constants.DRAWABLE_QIBLA) : R.drawable.qibla);
+                            intent.getExtras().getInt(Constants.DRAWABLE_QIBLA) : R.drawable.qibla);*/
 
             // Footer Image
-            findViewById(R.id.footer_image).setVisibility(
+            /*findViewById(R.id.footer_image).setVisibility(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.FOOTER_IMAGE_VISIBLE)) ?
-                            intent.getExtras().getInt(Constants.FOOTER_IMAGE_VISIBLE) : View.VISIBLE);
+                            intent.getExtras().getInt(Constants.FOOTER_IMAGE_VISIBLE) : View.VISIBLE);*/
 
             // Your Location TextView
-            findViewById(R.id.your_location).setVisibility(
+            /*findViewById(R.id.your_location).setVisibility(
                     (intent.getExtras() != null &&
                             intent.getExtras().containsKey(Constants.LOCATION_TEXT_VISIBLE)) ?
-                            intent.getExtras().getInt(Constants.LOCATION_TEXT_VISIBLE) : View.VISIBLE);
+                            intent.getExtras().getInt(Constants.LOCATION_TEXT_VISIBLE) : View.VISIBLE);*/
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,7 +215,7 @@ public class CompassActivity extends AppCompatActivity {
         if (permission_granted) {
             getBearing();
         } else {
-            tvAngle.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
+            /*tvAngle.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
             tvYourLocation.setText(getResources().getString(R.string.msg_permission_not_granted_yet));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 ActivityCompat.requestPermissions(this,
@@ -224,7 +224,7 @@ public class CompassActivity extends AppCompatActivity {
                         RC_Permission);
             } else {
                 fetch_GPS();
-            }
+            }*/
         }
 
 
@@ -233,9 +233,8 @@ public class CompassActivity extends AppCompatActivity {
 
             @Override
             public void onNewAzimuth(float azimuth) {
-                // adjustArrow(azimuth);
-                adjustGambarDial(azimuth);
-                adjustArrowQiblat(azimuth);
+                /*adjustGambarDial(azimuth);
+                adjustArrowQiblat(azimuth);*/
             }
         };
         compass.setListener(cl);
@@ -332,6 +331,7 @@ public class CompassActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == RC_Permission) {
             // If request is cancelled, the result arrays are empty.
             if (grantResults.length > 0

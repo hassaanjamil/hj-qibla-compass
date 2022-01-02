@@ -6,7 +6,7 @@
     </style>
 
     <style name="toolbar" parent="AppTheme">
-        <item name="android:background">@color/app_red</item>
+        <item name="android:background">@color/white</item>
     </style>
 
 </resources>

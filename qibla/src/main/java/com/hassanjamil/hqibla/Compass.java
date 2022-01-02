@@ -1,15 +1,22 @@
 package com.hassanjamil.hqibla;
 
+import static android.view.View.INVISIBLE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
+import android.widget.ImageView;
 
 public class Compass implements SensorEventListener {
     private static final String TAG = Compass.class.getSimpleName();
@@ -31,10 +38,15 @@ public class Compass implements SensorEventListener {
 
     private float azimuthFix;
 
+    private float currentAzimuth;
+    private SharedPreferences prefs;
+
     public Compass(Context context) {
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         asensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         msensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+
+        prefs = context.getSharedPreferences("", Context.MODE_PRIVATE);
     }
 
     public void start(Context context) {
@@ -160,5 +172,48 @@ public class Compass implements SensorEventListener {
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    public void adjustGambarDial(ImageView imageDial, float azimuth) {
+        // Log.d(TAG, "will set rotation from " + currentAzimuth + " to "                + azimuth);
+
+        Animation an = new RotateAnimation(-currentAzimuth, -azimuth,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        currentAzimuth = (azimuth);
+        an.setDuration(500);
+        an.setRepeatCount(0);
+        an.setFillAfter(true);
+        imageDial.startAnimation(an);
+    }
+
+    public void adjustArrowQiblat(ImageView qiblatIndicator, float azimuth) {
+        //Log.d(TAG, "will set rotation from " + currentAzimuth + " to "                + azimuth);
+
+        float kiblat_derajat = GetFloat("kiblat_derajat");
+        Animation an = new RotateAnimation(-(currentAzimuth) + kiblat_derajat, -azimuth,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
+                0.5f);
+        currentAzimuth = (azimuth);
+        an.setDuration(500);
+        an.setRepeatCount(0);
+        an.setFillAfter(true);
+        qiblatIndicator.startAnimation(an);
+        if (kiblat_derajat > 0) {
+            qiblatIndicator.setVisibility(View.VISIBLE);
+        } else {
+            qiblatIndicator.setVisibility(INVISIBLE);
+            qiblatIndicator.setVisibility(View.GONE);
+        }
+    }
+
+    public void SaveFloat(String Judul, Float bbb) {
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.putFloat(Judul, bbb);
+        edit.apply();
+    }
+
+    public Float GetFloat(String Judul) {
+        return prefs.getFloat(Judul, 0);
     }
 }

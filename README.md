@@ -6,7 +6,9 @@ An open source Android (Java) Native Library to incorporate/start Android Qibla 
 
 ### Screenshot
 <p float="left">
- <img src="screenshot/preview.png" width="300" />
+ <img src="screenshot/1.png" width="300" />
+ <img src="screenshot/2.png" width="300" />
+ <img src="screenshot/3.png" width="300" />
 </p>
 
 ### Contributor

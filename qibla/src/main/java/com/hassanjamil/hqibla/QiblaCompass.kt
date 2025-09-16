@@ -57,6 +57,7 @@ import kotlin.math.abs
  * @param markerColor Color of the north marker.
  * @param markerContentColor Color of the north marker content.
  * @param location Optional device location.
+ * @param animationDurationMillis Duration for dial and indicator animations in milliseconds, default is 320.
  * @param infoContent Optional content rendered on top of the compass. Defaults to [QiblaCompassDefaults.InfoPanel].
  * @param showInfoPanel Whether to display the information panel overlay on the compass.
  */
@@ -76,6 +77,7 @@ fun QiblaCompass(
     markerColor: Color = MaterialTheme.colorScheme.primary,
     markerContentColor: Color = MaterialTheme.colorScheme.onPrimary,
     location: Location? = null,
+    animationDurationMillis: Int = 320,
     infoContent: (@Composable BoxScope.(QiblaCompassInfo) -> Unit)? = QiblaCompassDefaults.InfoPanel,
     showInfoPanel: Boolean = true
 ) {
@@ -86,7 +88,7 @@ fun QiblaCompass(
     val dialAnimatedTarget = dialTarget?.sanitizeRotation(dialPrevious) ?: dialPrevious
     val dialRotation by animateFloatAsState(
         targetValue = dialAnimatedTarget,
-        animationSpec = tween(durationMillis = 550, easing = FastOutSlowInEasing),
+        animationSpec = tween(durationMillis = animationDurationMillis, easing = FastOutSlowInEasing),
         label = "dialRotation"
     )
 
@@ -102,7 +104,7 @@ fun QiblaCompass(
     val indicatorAnimatedTarget = if (indicatorTarget != null) indicatorTarget.sanitizeRotation(indicatorPrevious) else indicatorPrevious
     val indicatorRotation by animateFloatAsState(
         targetValue = indicatorAnimatedTarget,
-        animationSpec = tween(durationMillis = 550, easing = FastOutSlowInEasing),
+        animationSpec = tween(durationMillis = animationDurationMillis, easing = FastOutSlowInEasing),
         label = "indicatorRotation"
     )
 
@@ -178,9 +180,11 @@ fun QiblaCompass(
         }
 
         if (showInfoPanel) {
+        if (showInfoPanel) {
             infoContent?.invoke(this, info)
         }
     }
+}
 }
 
 /**

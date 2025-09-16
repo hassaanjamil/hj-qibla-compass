@@ -142,6 +142,7 @@ private fun SampleApp() {
                 azimuthDegrees = azimuth,
                 qiblaDirectionDegrees = qiblaDirection,
                 location = location,
+                animationDurationMillis = 260,
                 showInfoPanel = false
             )
 
@@ -156,6 +157,7 @@ private fun SampleApp() {
                 markerColor = MaterialTheme.colorScheme.secondary,
                 markerContentColor = MaterialTheme.colorScheme.onSecondary,
                 location = location,
+                animationDurationMillis = 160,
 //                infoContent = { info -> CustomCompassInfo(info = info) }
             )
 

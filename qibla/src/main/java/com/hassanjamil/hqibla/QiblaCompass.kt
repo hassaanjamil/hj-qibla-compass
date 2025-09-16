@@ -55,7 +55,10 @@ import kotlin.math.abs
  * @param borderWidth Border width for the compass container.
  * @param showNorthMarker Whether to render a marker at the north direction.
  * @param markerColor Color of the north marker.
+ * @param markerContentColor Color of the north marker content.
+ * @param location Optional device location.
  * @param infoContent Optional content rendered on top of the compass. Defaults to [QiblaCompassDefaults.InfoPanel].
+ * @param showInfoPanel Whether to display the information panel overlay on the compass.
  */
 @Composable
 fun QiblaCompass(
@@ -73,13 +76,14 @@ fun QiblaCompass(
     markerColor: Color = MaterialTheme.colorScheme.primary,
     markerContentColor: Color = MaterialTheme.colorScheme.onPrimary,
     location: Location? = null,
-    infoContent: (@Composable BoxScope.(QiblaCompassInfo) -> Unit)? = QiblaCompassDefaults.InfoPanel
+    infoContent: (@Composable BoxScope.(QiblaCompassInfo) -> Unit)? = QiblaCompassDefaults.InfoPanel,
+    showInfoPanel: Boolean = true
 ) {
     var dialPrevious by remember { mutableFloatStateOf(0f) }
     var indicatorPrevious by remember { mutableFloatStateOf(0f) }
 
     val dialTarget = azimuthDegrees?.let { -it.normalizeDegrees() }
-    val dialAnimatedTarget = if (dialTarget != null) dialTarget.sanitizeRotation(dialPrevious) else dialPrevious
+    val dialAnimatedTarget = dialTarget?.sanitizeRotation(dialPrevious) ?: dialPrevious
     val dialRotation by animateFloatAsState(
         targetValue = dialAnimatedTarget,
         animationSpec = tween(durationMillis = 550, easing = FastOutSlowInEasing),
@@ -173,7 +177,9 @@ fun QiblaCompass(
             }
         }
 
-        infoContent?.invoke(this, info)
+        if (showInfoPanel) {
+            infoContent?.invoke(this, info)
+        }
     }
 }
 

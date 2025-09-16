@@ -141,7 +141,8 @@ private fun SampleApp() {
                 modifier = Modifier.size(280.dp),
                 azimuthDegrees = azimuth,
                 qiblaDirectionDegrees = qiblaDirection,
-                location = location
+                location = location,
+                showInfoPanel = false
             )
 
             QiblaCompass(
@@ -155,7 +156,7 @@ private fun SampleApp() {
                 markerColor = MaterialTheme.colorScheme.secondary,
                 markerContentColor = MaterialTheme.colorScheme.onSecondary,
                 location = location,
-                infoContent = { info -> CustomCompassInfo(info = info) }
+//                infoContent = { info -> CustomCompassInfo(info = info) }
             )
 
             StatusCard(

@@ -19,4 +19,10 @@
     <string name="dialog_message_sensor_not_exist" translatable="false">Your device doesn\'t have the required sensors</string>
     <string name="dialog_title" translatable="false">Alert</string>
     <string name="footer_image">Footer Image</string>
+    <string name="qibla_compass_calibrating" translatable="false">Calibrating sensors…</string>
+    <string name="qibla_compass_heading" translatable="false">Heading %1$.0f°</string>
+    <string name="qibla_compass_direction" translatable="false">Qibla: %1$.0f° %2$s</string>
+    <string name="qibla_compass_turn_right" translatable="false">Turn %1$.0f° right</string>
+    <string name="qibla_compass_turn_left" translatable="false">Turn %1$.0f° left</string>
+    <string name="qibla_compass_aligned" translatable="false">Aligned</string>
 </resources>

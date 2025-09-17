@@ -1,19 +1,15 @@
-import org.gradle.api.Project
-import org.gradle.api.publish.maven.MavenPublication
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("maven-publish")
-    id("signing")
-    id("org.jetbrains.dokka") version "1.9.20"
+    id("com.vanniktech.maven.publish") version "0.34.0"
 }
 
-fun Project.stringProperty(name: String, fallback: String): String =
-    (findProperty(name) as? String)?.takeIf { it.isNotBlank() } ?: fallback
+group = (project.findProperty("GROUP") as? String).orEmpty().ifBlank { "io.github.hassaanjamil" }
+version = (project.findProperty("VERSION_NAME") as? String).orEmpty().ifBlank { "1.0.0" }
 
-group = stringProperty("POM_GROUP_ID", "com.hassanjamil")
-version = stringProperty("qiblaVersion", "1.0.0")
+extensions.configure<org.gradle.plugins.signing.SigningExtension>("signing") {
+    useGpgCmd()
+}
 
 android {
     namespace = "com.hassanjamil.hqibla"
@@ -53,13 +49,6 @@ android {
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar() // if Dokka/javadoc is configured;
-        }
-    }
 }
 
 dependencies {
@@ -83,56 +72,4 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-}
-
-// Javadoc note (required by Central)
-tasks.register<Jar>("javadocJar") {
-    dependsOn(tasks.dokkaHtml)
-    from(tasks.dokkaHtml)
-    archiveClassifier.set("javadoc")
-}
-
-
-afterEvaluate {
-    publishing {
-        publications {
-            create<MavenPublication>("release") {
-                from(components["release"])
-                groupId = project.group.toString()
-                artifactId = stringProperty("POM_ARTIFACT_ID", "qibla")
-                version = project.version.toString()
-                pom {
-                    name.set(stringProperty("POM_NAME", "hjQiblaCompass"))
-                    description.set(stringProperty("POM_DESCRIPTION", "Jetpack Compose Qibla compass component for Android."))
-                    url.set(stringProperty("POM_URL", "https://github.com/hassanjamil/hj-qibla-compass"))
-                    licenses {
-                        license {
-                            name.set(stringProperty("POM_LICENSE_NAME", "Apache License 2.0"))
-                            url.set(stringProperty("POM_LICENSE_URL", "https://www.apache.org/licenses/LICENSE-2.0.txt"))
-                            distribution.set(stringProperty("POM_LICENSE_DIST", "repo"))
-                        }
-                    }
-                    developers {
-                        developer {
-                            id.set(stringProperty("POM_DEVELOPER_ID", "hassanjamil"))
-                            name.set(stringProperty("POM_DEVELOPER_NAME", "Muhammad Hassan Jamil"))
-                            email.set(stringProperty("POM_DEVELOPER_EMAIL", "hassanjamil91@gmail.com"))
-                        }
-                    }
-                    scm {
-                        url.set(stringProperty("POM_SCM_URL", "https://github.com/hassanjamil/hj-qibla-compass"))
-                        connection.set(stringProperty("POM_SCM_CONNECTION", "scm:git:git://github.com/hassanjamil/hj-qibla-compass.git"))
-                        developerConnection.set(stringProperty("POM_SCM_DEV_CONNECTION", "scm:git:ssh://github.com:hassanjamil/hj-qibla-compass.git"))
-                    }
-                }
-            }
-            publications.named<MavenPublication>("release") {
-                artifact(tasks["javadocJar"])
-            }
-        }
-    }
-
-    signing {
-        sign(publishing.publications["release"])
-    }
 }

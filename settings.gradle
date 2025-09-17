@@ -1,4 +1,0 @@
-include ':app', ':qibla'
-
-//include ':dsensor'
-//project(':dsensor').projectDir = new File('E:\\Development\\Workspaces\\AndroidStudioProjects\\Samples\\dsensor-master\\dsensor')

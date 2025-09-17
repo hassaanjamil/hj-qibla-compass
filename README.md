@@ -36,7 +36,7 @@ allprojects {
 ```kotlin
 // module-level build.gradle(.kts)
 dependencies {
-    implementation("io.github.hassaanjamil:qibla:1.0.0")
+    implementation("io.github.hassaanjamil:qiblaCompass:1.0.0")
 }
 ```
 

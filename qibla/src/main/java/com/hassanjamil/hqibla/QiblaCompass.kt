@@ -180,15 +180,14 @@ fun QiblaCompass(
         }
 
         if (showInfoPanel) {
-        if (showInfoPanel) {
             infoContent?.invoke(this, info)
         }
     }
 }
-}
 
 /**
- * Data model describing the values shown on the compass.
+ * Snapshot of compass state passed to overlay content such as [QiblaCompassDefaults.InfoPanel].
+ * Consumers can use these values to render custom status panels or analytics.
  */
 data class QiblaCompassInfo(
     val azimuth: Float?,
@@ -197,7 +196,15 @@ data class QiblaCompassInfo(
     val location: Location?
 )
 
+/**
+ * Default building blocks that make it easier to customise [QiblaCompass].
+ */
 object QiblaCompassDefaults {
+
+    /**
+     * Drop-in overlay that mirrors the library demo by showing direction, heading, delta, and coords.
+     * Assign to [QiblaCompass.infoContent] or use as a reference when composing your own panel.
+     */
     val InfoPanel: @Composable BoxScope.(QiblaCompassInfo) -> Unit = { info ->
         if (info.azimuth == null && info.qiblaDirection == null) {
             Box(

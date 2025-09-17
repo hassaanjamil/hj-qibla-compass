@@ -15,7 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 private const val DEFAULT_SENSOR_SMOOTHING = 0.97f
 
 /**
- * Provides a [State] that is kept up to date with the device azimuth relative to magnetic north.
+ * Provides a [State] that reflects the device azimuth relative to magnetic north while the caller is in composition.
+ * Returns `null` when the required rotation or fallback sensors are unavailable or permission is missing.
  *
  * @param sensorDelay Sensor delay used for registration. Defaults to [SensorManager.SENSOR_DELAY_GAME].
  */

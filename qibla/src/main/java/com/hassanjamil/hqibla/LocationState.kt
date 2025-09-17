@@ -104,6 +104,10 @@ fun rememberLocationState(
     return locationState
 }
 
+/**
+ * Checks whether either fine or coarse location permission has been granted to this context.
+ * Useful when wiring runtime permission prompts before calling [rememberLocationState].
+ */
 fun Context.hasLocationPermission(): Boolean {
     val fineGranted = ContextCompat.checkSelfPermission(
         this,

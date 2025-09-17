@@ -51,11 +51,18 @@ internal fun Float.sanitizeRotation(previous: Float): Float {
     return this
 }
 
+/**
+ * Returns the signed angular distance (in degrees) between the current heading and a target bearing.
+ * Positive values indicate the target lies to the right of the current heading, negatives to the left.
+ */
 fun bearingDifference(currentAzimuth: Float, targetAzimuth: Float): Float {
     val diff = (targetAzimuth - currentAzimuth + 540f) % 360f - 180f
     return diff
 }
 
+/**
+ * Converts a bearing in degrees into one of the 8 cardinal direction labels (e.g. "N", "SW").
+ */
 fun Float.toCardinalDirection(): String {
     if (this.isNaN()) return ""
     val directions = listOf("N", "NE", "E", "SE", "S", "SW", "W", "NW")

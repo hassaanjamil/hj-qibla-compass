@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name" translatable="false">Qibla Compass Sample App</string>
+    <string name="permission_required_message">Location permission is required to compute the Qibla direction.</string>
+    <string name="permission_granted_message">Location permission granted. Waiting for a location fix…</string>
+    <string name="request_permission">Grant location access</string>
+    <string name="custom_style_title">Custom style</string>
+    <string name="qibla_direction_format">Direction %1$s • %2$s</string>
+    <string name="device_heading_format">Heading %.0f°</string>
+    <string name="live_status_title">Live status</string>
+    <string name="status_heading">Heading</string>
+    <string name="status_qibla_direction">Qibla direction</string>
+    <string name="status_bearing_difference">Adjustment</string>
+    <string name="status_permission">Permission</string>
+    <string name="status_location_fix">Location fix</string>
+    <string name="status_pending">Pending</string>
+    <string name="status_granted">Granted</string>
+    <string name="status_denied">Denied</string>
+    <string name="status_available">Available</string>
 </resources>

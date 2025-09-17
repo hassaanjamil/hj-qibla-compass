@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
     id("signing")
+    id("org.jetbrains.dokka") version "1.9.20"
 }
 
 fun Project.stringProperty(name: String, fallback: String): String =
@@ -52,6 +53,13 @@ android {
     packaging {
         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar() // if Dokka/javadoc is configured;
+        }
+    }
 }
 
 dependencies {
@@ -76,6 +84,14 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 }
+
+// Javadoc note (required by Central)
+tasks.register<Jar>("javadocJar") {
+    dependsOn(tasks.dokkaHtml)
+    from(tasks.dokkaHtml)
+    archiveClassifier.set("javadoc")
+}
+
 
 afterEvaluate {
     publishing {
@@ -110,15 +126,13 @@ afterEvaluate {
                     }
                 }
             }
+            publications.named<MavenPublication>("release") {
+                artifact(tasks["javadocJar"])
+            }
         }
     }
 
     signing {
-        val signingKey = findProperty("signingKey") as String?
-        val signingPassword = findProperty("signingPassword") as String?
-        if (!signingKey.isNullOrBlank()) {
-            useInMemoryPgpKeys(signingKey, signingPassword)
-            sign(publishing.publications)
-        }
+        sign(publishing.publications["release"])
     }
 }

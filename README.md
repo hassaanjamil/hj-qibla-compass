@@ -90,6 +90,7 @@ The `app` module contains a Compose-based sample that demonstrates permission ha
 ```bash
 ./gradlew :app:assembleDebug
 ```
+<img src="screeshot/1.jpg" width="300"/>
 
 ## Contributing
 Pull requests and issues are welcome! Please open a discussion if you have suggestions for new customization points or sensor improvements.

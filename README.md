@@ -36,7 +36,7 @@ allprojects {
 ```kotlin
 // module-level build.gradle(.kts)
 dependencies {
-    implementation("com.hassanjamil:qibla:1.0.0")
+    implementation("io.github.hassaanjamil:qibla:1.0.0")
 }
 ```
 
@@ -87,46 +87,9 @@ For location helpers:
 ## Sample App
 The `app` module contains a Compose-based sample that demonstrates permission handling and two styling approaches. Launch it to see the compass in action.
 
-```
+```bash
 ./gradlew :app:assembleDebug
 ```
-
-## Releasing version 1.0.0 to Maven Central
-The project is configured for Maven Central distribution using the Gradle Nexus Publish Plugin.
-
-### 1. Prerequisites
-1. Register for a [Sonatype OSSRH](https://issues.sonatype.org/) account and request access to the `com.hassanjamil` groupId (or an alternative you control).
-2. Generate a GPG key pair (RSA, 4096-bit recommended) and keep the private key handy.
-3. Make sure you have an active Git tag/commit for the release.
-
-### 2. Configure credentials and signing
-Edit your personal `~/.gradle/gradle.properties` (do **not** commit these values):
-
-```
-sonatypeUsername=yourSonatypeUsername
-sonatypePassword=yourSonatypePassword
-signingKey=-----BEGIN PGP PRIVATE KEY BLOCK-----\n...
-signingPassword=optionalKeyPassphrase
-```
-
-If you prefer to reference an existing key ring instead of the inline key string, replace `signingKey`/`signingPassword` with `signing.gnupg.keyName` and `signing.gnupg.passphrase` as supported by Gradle’s Signing plugin.
-
-### 3. Bump the version if needed
-The published version is controlled via `qiblaVersion` in the root `gradle.properties`. Update it and commit the change whenever you cut a new release.
-
-### 4. Publish to Sonatype
-Run the publication workflow from the project root:
-
-```
-./gradlew clean :qibla:publishToSonatype closeAndReleaseSonatypeStagingRepository
-```
-
-The first command publishes the artifacts and closes the staging repository. The second command releases the staging repository so Maven Central can sync it. If anything fails, visit [Sonatype Nexus](https://s01.oss.sonatype.org/) → *Staging Repositories* to inspect logs, fix issues, and retry `closeAndReleaseSonatypeStagingRepository` after dropping/closing the repo.
-
-### 5. Verify the release
-- Wait for Maven Central synchronization (usually a few minutes).
-- Search for `com.hassanjamil:qibla` on [search.maven.org](https://search.maven.org) to confirm version `1.0.0` is live.
-- Tag the release in git, e.g. `git tag v1.0.0 && git push origin v1.0.0`.
 
 ## Contributing
 Pull requests and issues are welcome! Please open a discussion if you have suggestions for new customization points or sensor improvements.

@@ -1,5 +1,7 @@
 # hjQiblaCompass
 
+<img src="screenshot/featureImage.png" width="300" height="190"/>
+
 Modern Android library that renders a customizable Qibla compass using Kotlin and Jetpack Compose. It provides lifecycle-aware sensor and location helpers together with a ready-to-use compass composable that you can drop into your app.
 
 ## Features
@@ -86,6 +88,8 @@ For location helpers:
 
 ## Sample App
 The `app` module contains a Compose-based sample that demonstrates permission handling and two styling approaches. Launch it to see the compass in action.
+
+<img src="1.png" width="250"/>
 
 ```bash
 ./gradlew :app:assembleDebug

@@ -101,6 +101,3 @@ Pull requests and issues are welcome! Please open a discussion if you have sugge
 
 ## License
 Apache License 2.0 – see [LICENSE](LICENSE) for details.
-
-### Reference
-This code is initially based on https://github.com/iutinvg/compass/
